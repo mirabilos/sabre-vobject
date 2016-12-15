@@ -6,16 +6,10 @@ and [vCard](https://tools.ietf.org/html/rfc6350) objects using PHP.
 
 The goal of the VObject library is to create a very complete library, with an easy to use API.
 
-Build status
-------------
+Derivative
+----------
 
-| branch | status |
-| ------ | ------ |
-| master | [![Build Status](https://travis-ci.org/fruux/sabre-vobject.svg?branch=master)](https://travis-ci.org/fruux/sabre-vobject) |
-| 3.4    | [![Build Status](https://travis-ci.org/fruux/sabre-vobject.svg?branch=3.4)](https://travis-ci.org/fruux/sabre-vobject) |
-| 3.1    | [![Build Status](https://travis-ci.org/fruux/sabre-vobject.svg?branch=3.1)](https://travis-ci.org/fruux/sabre-vobject) |
-| 2.1    | [![Build Status](https://travis-ci.org/fruux/sabre-vobject.svg?branch=2.1)](https://travis-ci.org/fruux/sabre-vobject) |
-| 2.0    | [![Build Status](https://travis-ci.org/fruux/sabre-vobject.svg?branch=2.0)](https://travis-ci.org/fruux/sabre-vobject) |
+This derivative of Sabre\vObject parses data from legacy libical versions correctly.
 
 
 Installation
