@@ -20,7 +20,7 @@ class StringUtil {
     static public function isUTF8($str) {
 
         // Control characters
-        if (preg_match('%[\x00-\x08\x0B-\x0C\x0E\x0F]%', $str)) {
+        if (preg_match('%[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]%', $str)) {
             return false;
         }
 
