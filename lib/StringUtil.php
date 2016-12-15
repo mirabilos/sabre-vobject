@@ -159,7 +159,7 @@ class StringUtil {
             /* convert from Codepage 1252 to UTF-16LE */
             $ws = implode('', array_map(function ($value) {
                 return (self::$cp1252_map[ord($value)]);
-              }, str_split($str)));
+            }, str_split($str)));
             /* convert from UTF-16LE to UTF-8 */
             $mbs = mb_convert_encoding($ws, "UTF-8", "UTF-16LE");
         }
