@@ -19,9 +19,36 @@ use
  * Sabre\VObject\Component\VCalendar
  * Sabre\VObject\Component\VCard
  *
- * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
- * @author Evert Pot (http://evertpot.com/)
- * @license http://sabre.io/license/ Modified BSD License
+ * Copyright (C) 2011-2016 Evert Pot (http://evertpot.com/),
+ *	fruux GmbH (https://fruux.com/)
+ * Copyright © 2014, 2016 mirabilos,
+ *	tarent solutions GmbH (https://www.tarent.de/)
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ * - Neither the name Sabre nor the names of its contributors
+ *   may be used to endorse or promote products derived from this software
+ *   without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 class MimeDir extends Parser {
 
@@ -468,6 +495,10 @@ class MimeDir extends Parser {
      *     They are specifically used in Semi-colons are used as a delimiter in
      *     REQUEST-STATUS, RRULE, GEO and EXRULE. EXRULE is deprecated however.
      *
+     * We unescape backslash-escaped double quotes, t, r, b, f as well, even
+     * though those cannot occur in standards-compliant documents, because
+     * libical generates those.
+     *
      * Now for the parameters
      *
      * If delimiter is not set (null) this method will just return a string.
@@ -480,7 +511,7 @@ class MimeDir extends Parser {
      */
     static public function unescapeValue($input, $delimiter = ';') {
 
-        $regex = '#  (?: (\\\\ (?: \\\\ | N | n | ; | , ) )';
+        $regex = '#  (?: (\\\\ (?: \\\\ | N | n | ; | , | t | r | b | f | " ) )';
         if ($delimiter) {
             $regex .= ' | (' . $delimiter . ')';
         }
@@ -510,6 +541,21 @@ class MimeDir extends Parser {
                 case $delimiter :
                     $resultArray[] = $result;
                     $result = '';
+                    break;
+                case '\t' :
+                    $result .="\t";
+                    break;
+                case '\r' :
+                    $result .="\r";
+                    break;
+                case '\b' :
+                    $result .="\010";
+                    break;
+                case '\f' :
+                    $result .="\f";
+                    break;
+                case '\"' :
+                    $result .='"';
                     break;
                 default :
                     $result .= $match;

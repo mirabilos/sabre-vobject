@@ -1,6 +1,15 @@
 ChangeLog
 =========
 
+3.5.3+SimKolab (2016-12-15)
+---------------------------
+
+* #134: Really check for all C0 control characters.
+* Fix UTF-8 validator.
+* Convert using cp1252 as fallback encoding.
+* #129: Parse libical-specific or otherwise invalid escapes in TEXT the
+  same way libical does.
+
 3.5.3 (2016-10-06)
 ------------------
 
