@@ -212,7 +212,11 @@ class FreeBusyGenerator {
                                 // instance. We are skipping this event from the output
                                 // entirely.
                                 unset($this->objects[$key]);
-                                continue;
+                                // This originally read “continue”, but that’s the same
+                                // as “break” inside a switch; could mean “continue 2;”
+                                // but, as the switch terminates at the end of the loop,
+                                // these are equal.
+                                break;
                             }
 
                             if ($this->start) {
